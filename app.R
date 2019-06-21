@@ -52,6 +52,11 @@ server <- function(input, output) {
     library(shiny)
     library(lime)
     
+    # Custom text explainer function requires explicitly loading some packages
+    # library(assertthat)
+    # library(htmlwidgets)
+    source("plot_text_custom.R")
+    
     load(file = "stem_tokeniser.rda", .GlobalEnv)
     load(file = "vectoriser.rda", .GlobalEnv)
     load(file = "tfidf.rda", .GlobalEnv)
@@ -75,7 +80,7 @@ server <- function(input, output) {
             feature_select = input$feature_selection_strategy, 
             n_permutations = input$number_permutations
         )
-        plot_text_explanations(shared_states$explanations)
+        plot_text_explanations_custom(shared_states$explanations)
     })
 }
 
