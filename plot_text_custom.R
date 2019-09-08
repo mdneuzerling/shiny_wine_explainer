@@ -10,7 +10,7 @@
 #' - Explicitly specify packages---since we're using a custom function, we're
 #' no longer in LIME's namespace.
 
-plot_text_explanations_custom <- function(explanations, ...) {
+plot_text_explanations_custom <- function(explanations, points, ...) {
     assertthat::assert_that(is.data.frame(explanations))
     assertthat::assert_that(!is.null(explanations$data))
     original_text <- explanations$data
@@ -26,10 +26,8 @@ plot_text_explanations_custom <- function(explanations, ...) {
         assertthat::assert_that(assertthat::is.number(predicted_label_prob))
         info_prediction_text <- paste0(
             '<sub>Predicted: ',
-            predicted_label_text,
-            ' (',
-            round(predicted_label_prob * 100, 2),
-            '%)<br/>Explainer fit: ',
+            round(points, 0),
+            ' points<br/>Explainer fit: ',
             format(current_case_df$model_r2[1], digits = 2),
             '</sub>'
         )

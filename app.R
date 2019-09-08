@@ -61,6 +61,7 @@ server <- function(input, output) {
     load(file = "vectoriser.rda", .GlobalEnv)
     load(file = "tfidf.rda", .GlobalEnv)
     load(file = "map_to_dtm.rda", .GlobalEnv)
+    load(file = "xgb.rda", .GlobalEnv)
     load(file = "wine_classification_explainer.rda", .GlobalEnv)
     
     shared_states <- list()
@@ -72,6 +73,9 @@ server <- function(input, output) {
                 message = "Text provided is too short to be explained (>= 5)."
             )
         )
+        
+        points <- predict(xgb, map_to_dtm(input$text_to_explain))
+        
         shared_states$explanations <<- lime::explain(
             input$text_to_explain, 
             wine_classification_explainer, 
@@ -80,7 +84,8 @@ server <- function(input, output) {
             feature_select = input$feature_selection_strategy, 
             n_permutations = input$number_permutations
         )
-        plot_text_explanations_custom(shared_states$explanations)
+        
+        plot_text_explanations_custom(shared_states$explanations, points)
     })
 }
 
