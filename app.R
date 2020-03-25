@@ -1,5 +1,7 @@
 library(shiny)
 library(lime)
+library(xgboost)
+library(text2vec)
 
 feature_selection_strategy <- local({
   strategies <- c(
