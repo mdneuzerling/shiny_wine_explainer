@@ -15,6 +15,7 @@ ui <- fluidPage(
     titlePanel(title = "Is this wine good?"),
     hr(),
     sidebarPanel(
+        p("Enter a wine review in a few sentences:"),
         textAreaInput(
             "text_to_explain", 
             label = NULL, 
@@ -40,7 +41,8 @@ ui <- fluidPage(
             max = 20, 
             value = 5, 
             ticks = FALSE
-        )
+        ),
+        a("Source code", href = "https://github.com/mdneuzerling/shiny_wine_explainer")
     ),
     
     mainPanel(
